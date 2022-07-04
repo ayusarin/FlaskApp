@@ -3,9 +3,11 @@ pipeline {
   stages {
     stage('Build') {
       parallel {
-        stage('Build') {
+        stage('Build Docker') {
           steps {
-            sh 'echo "building the repo"'
+            // sh 'echo "building the repo"'
+            // build the docker image from the source code using the BUILD_ID parameter in image name
+            sh "sudo docker build -t flask-app ."
           }
         }
       }
@@ -18,10 +20,11 @@ pipeline {
       }
     }
 
-    stage('Deploy')
+    stage('run docker container')
     {
       steps {
-        echo "deploying the application"
+        // echo "deploying the application"
+        sh "sudo docker run -p 8000:8000 --name flask-app -d flask-app "
       }
     }
 
