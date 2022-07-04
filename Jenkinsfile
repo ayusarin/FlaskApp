@@ -18,7 +18,7 @@ pipeline {
       }
     }
 
-    stage('run docker container')
+    stage('Deploy')
     {
       steps {
          echo "deploying the application"
