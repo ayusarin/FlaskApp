@@ -24,7 +24,7 @@ pipeline {
     {
       steps {
         // echo "deploying the application"
-        sh "sudo docker run -p 8000:8000 --name flask-app -d flask-app "
+        sh "sudo docker run -p 5000:5000 --name flask-app -d flask-app "
       }
     }
 
