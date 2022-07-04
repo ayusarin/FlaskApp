@@ -7,7 +7,7 @@ pipeline {
           steps {
             // sh 'echo "building the repo"'
             // build the docker image from the source code using the BUILD_ID parameter in image name
-            sh "sudo docker build -t flask-app ."
+            sh "docker build -t flask-app ."
           }
         }
       }
