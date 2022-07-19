@@ -5,8 +5,7 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-           //  sh 'echo "building the repo"'
-               docker build .
+             sh 'echo "building the repo"'
           }
         }
       }
