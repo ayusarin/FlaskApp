@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
           steps {
            //  sh 'echo "building the repo"'
-               docker build . -t asarin/pythonapp
+               docker build .
           }
         }
       }
