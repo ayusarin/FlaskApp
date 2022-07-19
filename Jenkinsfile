@@ -5,7 +5,8 @@ pipeline {
       parallel {
         stage('Build') {
           steps {
-             sh 'echo "building the repo"'
+           //  sh 'echo "building the repo"'
+               docker build . -t asarin/pythonapp
           }
         }
       }
