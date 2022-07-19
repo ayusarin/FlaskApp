@@ -1,47 +1,34 @@
-pipeline {
-  def app
-  agent any
-  stages {
-    stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
-            //  sh 'echo "building the repo"'
-             app = docker.build("asarin/CalculatorApp")
-          }
-        }
-      }
+node {
+    def app
+
+    stage('Clone repository') {
+        /* Cloning the Repository to our Workspace */
+
+        checkout scm
     }
 
-    stage('Test') {
-      steps {
-        sh 'python3 test_app.py'
-        input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
-      }
+    stage('Build image') {
+        /* This builds the actual image */
+
+        app = docker.build("anandr72/nodeapp")
     }
 
-    stage('Deploy')
-    {
-      steps {
-         echo "deploying the application"
-      }
+    stage('Test image') {
+        
+        app.inside {
+            echo "Tests passed"
+        }
     }
-
-  }
-
-  post {
-        always {
-            echo 'The pipeline completed'
-            junit allowEmptyResults: true, testResults:'**/test_reports/*.xml'
-        }
-        success {
-            
-            sh "sudo nohup python3 app.py > log.txt 2>&1 &"
-            echo "Flask Application Up and running!!"
-        }
-        failure {
-            echo 'Build stage failed'
-            error('Stopping early…')
-        }
-      }
+	/* 
+    stage('Push image') {
+        /* 
+			You would need to first register with DockerHub before you can push images to your account
+		*/
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+            } 
+                echo "Trying to Push Docker Build to DockerHub"
+    }
+	*/
 }
