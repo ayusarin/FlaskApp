@@ -10,7 +10,7 @@ node {
     stage('Build image') {
         /* This builds the actual image */
 
-        app = docker.build("asarin/CalculatorApp")
+        app = docker.build("asarin/calculatorapp")
     }
 
     stage('Test image') {
