@@ -11,7 +11,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t asarin/calculatorapp:latest .'
+				sh 'docker build -t ayushsarin1991/my_testing:latest .'
 			}
 		}
 
@@ -25,7 +25,7 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push asarin/calculatorapp:latest'
+				sh 'docker push ayushsarin1991/my_testing:latest'
 			}
 		}
 	}
